@@ -33,6 +33,7 @@
         {!! $navLink('admin.films.index', '🎬', 'Films') !!}
         {!! $navLink('admin.users.index', '👥', 'Utilisateurs') !!}
         {!! $navLink('admin.transactions.index', '💳', 'Transactions') !!}
+        {!! $navLink('admin.profil.index', '⚙️', 'Mon Profil') !!}
     </nav>
 
     <div class="px-3 py-4 border-t border-gray-800">

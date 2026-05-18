@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\ProfilController;
 
 Route::get('/', fn() => redirect()->route('admin.login'));
 
@@ -37,5 +38,11 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('transactions/export', [Admin\TransactionController::class, 'export'])->name('transactions.export');
         Route::get('transactions/{transaction}', [Admin\TransactionController::class, 'show'])->name('transactions.show');
         Route::patch('transactions/{transaction}/refund', [Admin\TransactionController::class, 'refund'])->name('transactions.refund');
+
+        // Profil administrateur
+        Route::get('profil', [ProfilController::class, 'index'])->name('profil.index');
+        Route::put('profil/info', [ProfilController::class, 'updateInfo'])->name('profil.update-info');
+        Route::put('profil/avatar', [ProfilController::class, 'updateAvatar'])->name('profil.update-avatar');
+        Route::put('profil/password', [ProfilController::class, 'updatePassword'])->name('profil.update-password');
     });
 });
