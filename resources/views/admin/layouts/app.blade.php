@@ -21,12 +21,12 @@
     <nav class="flex-1 px-3 py-4 space-y-1">
         @php
             $currentRoute = request()->route()->getName();
-            $navLink = fn(string $route, string $icon, string $label) =>
-                '<a href="' . route($route) . '" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition ' .
-                (str_starts_with($currentRoute ?? '', str_replace('.index', '', $route))
-                    ? 'bg-orange-500 text-white font-semibold'
-                    : 'text-gray-400 hover:bg-gray-800 hover:text-white') .
-                '">' . $icon . ' ' . $label . '</a>';
+            $navLink = function(string $route, string $icon, string $label) use ($currentRoute): string {
+                if (!\Illuminate\Support\Facades\Route::has($route)) return '';
+                $active = str_starts_with($currentRoute ?? '', str_replace('.index', '', $route));
+                $cls = $active ? 'bg-orange-500 text-white font-semibold' : 'text-gray-400 hover:bg-gray-800 hover:text-white';
+                return '<a href="' . route($route) . '" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition ' . $cls . '">' . $icon . ' ' . $label . '</a>';
+            };
         @endphp
 
         {!! $navLink('admin.dashboard', '📊', 'Tableau de bord') !!}
